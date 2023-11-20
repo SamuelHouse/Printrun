@@ -46,7 +46,7 @@ class FocusCanvas(BufferedCanvas):
             dc.DrawRectangle(self.ClientRect)
 
 class XYButtons(FocusCanvas):
-    scale = 2
+    scale = 1.8
     keypad_positions = {
         0: ((scale*104), (scale*99)),
         1: ((scale*86), (scale*83)),

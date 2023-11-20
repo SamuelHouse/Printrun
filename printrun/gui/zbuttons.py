@@ -23,7 +23,7 @@ def sign(n):
     else: return 0
 
 class ZButtons(FocusCanvas):
-    scale = 2
+    scale = 1.8
     button_ydistances = [(scale*7), (scale*30), (scale*55), (scale*83)]  # ,112
     move_values = [(scale*0.1), (scale*1), (scale*10)]
     center = ((scale*30), (scale*118))
