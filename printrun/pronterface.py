@@ -51,10 +51,10 @@ except:
 
 from .gui.widgets import SpecialButton, MacroEditor, PronterOptions, ButtonEdit, get_space
 
-winsize = (800, 500)
+winsize = (1024, 600)
 layerindex = 0
 if os.name == "nt":
-    winsize = (800, 530)
+    winsize = (1024, 600)
 
 pronterface_quitting = False
 
@@ -159,8 +159,8 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         self.sentglines = queue.Queue(0)
         self.cpbuttons = {
             "motorsoff": SpecialButton(_("Motors off"), ("M84"), (250, 250, 250), _("Switch all motors off")),
-            "extrude": SpecialButton(_("Extrude"), ("pront_extrude"), (225, 200, 200), _("Advance extruder by set length")),
-            "reverse": SpecialButton(_("Reverse"), ("pront_reverse"), (225, 200, 200), _("Reverse extruder by set length")),
+            # "extrude": SpecialButton(_("Extrude"), ("pront_extrude"), (225, 200, 200), _("Advance extruder by set length")),
+            # "reverse": SpecialButton(_("Reverse"), ("pront_reverse"), (225, 200, 200), _("Reverse extruder by set length")),
         }
         self.custombuttons = []
         self.btndict = {}
@@ -219,7 +219,8 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         self.menustrip = wx.MenuBar()
         self.reload_ui()
         # disable all printer controls until we connect to a printer
-        self.gui_set_disconnected()
+        #self.gui_set_disconnected()
+        self.gui_set_connected()
         self.statusbar = self.CreateStatusBar()
         self.statusbar.SetStatusText(_("Not connected to printer."))
 

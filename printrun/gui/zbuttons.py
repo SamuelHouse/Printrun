@@ -23,18 +23,20 @@ def sign(n):
     else: return 0
 
 class ZButtons(FocusCanvas):
-    button_ydistances = [7, 30, 55, 83]  # ,112
-    move_values = [0.1, 1, 10]
-    center = (30, 118)
+    scale = 2
+    button_ydistances = [(scale*7), (scale*30), (scale*55), (scale*83)]  # ,112
+    move_values = [(scale*0.1), (scale*1), (scale*10)]
+    center = ((scale*30), (scale*118))
     label_overlay_positions = {
-        0: (1.1, 18, 9),
-        1: (1.1, 41.5, 10.6),
-        2: (1.1, 68, 13),
+        0: ((scale*1.1), (scale*18), (scale*9)),
+        1: ((scale*1.1), (scale*41.5), (scale*10.6)),
+        2: ((scale*1.1), (scale*68), (scale*13)),
     }
     imagename = "control_z.png"
 
     def __init__(self, parent, moveCallback = None, bgcolor = "#FFFFFF", ID=-1):
-        self.bg_bmp = wx.Image(imagefile(self.imagename), wx.BITMAP_TYPE_PNG).ConvertToBitmap()
+        self.bg_img_temp = wx.Image(imagefile(self.imagename), wx.BITMAP_TYPE_PNG)
+        self.bg_bmp = wx.Image(imagefile(self.imagename), wx.BITMAP_TYPE_PNG).Scale(round(self.bg_img_temp.GetWidth()*self.scale), round(self.bg_img_temp.GetHeight()*self.scale)).ConvertToBitmap()
         self.range = None
         self.direction = None
         self.orderOfMagnitudeIdx = 0  # 0 means '1', 1 means '10', 2 means '100', etc.

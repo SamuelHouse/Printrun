@@ -46,25 +46,26 @@ class FocusCanvas(BufferedCanvas):
             dc.DrawRectangle(self.ClientRect)
 
 class XYButtons(FocusCanvas):
+    scale = 2
     keypad_positions = {
-        0: (104, 99),
-        1: (86, 83),
-        2: (68, 65),
-        3: (53, 50)
+        0: ((scale*104), (scale*99)),
+        1: ((scale*86), (scale*83)),
+        2: ((scale*68), (scale*65)),
+        3: ((scale*53), (scale*50))
     }
-    keypad_radius = 9
-    corner_size = (49, 49)
-    corner_inset = (7, 13)
+    keypad_radius = (scale*9)
+    corner_size = (round(scale*49), round(scale*49))
+    corner_inset = (round(scale*7), round(scale*13))
     label_overlay_positions = {
-        1: (145, 98.5, 9),
-        2: (160.5, 83.5, 10.6),
-        3: (178, 66, 13),
-        4: (197.3, 46.3, 13.3)
+        1: ((scale*145), (scale*98.5), (scale*9)),
+        2: ((scale*160.5), (scale*83.5), (scale*10.6)),
+        3: ((scale*178), (scale*66), (scale*13)),
+        4: ((scale*197.3), (scale*46.3), (scale*13.3))
     }
-    concentric_circle_radii = [0, 17, 45, 69, 94, 115]
-    concentric_inset = 11
-    center = (124, 121)
-    spacer = 7
+    concentric_circle_radii = [round(0), round(17*scale), round(45*scale), round(69*scale), round(94*scale), round(115*scale)]
+    concentric_inset = round(scale*11)
+    center = (round(scale*124), round(scale*121))
+    spacer = round(scale*7)
     imagename = "control_xy.png"
     corner_to_axis = {
         -1: "center",
@@ -75,7 +76,10 @@ class XYButtons(FocusCanvas):
     }
 
     def __init__(self, parent, moveCallback = None, cornerCallback = None, spacebarCallback = None, bgcolor = "#FFFFFF", ID=-1, zcallback=None):
-        self.bg_bmp = wx.Image(imagefile(self.imagename), wx.BITMAP_TYPE_PNG).ConvertToBitmap()
+
+        
+        self.bg_img_temp = wx.Image(imagefile(self.imagename), wx.BITMAP_TYPE_PNG)
+        self.bg_bmp = wx.Image(imagefile(self.imagename), wx.BITMAP_TYPE_PNG).Scale(round(self.bg_img_temp.GetWidth()*self.scale), round(self.bg_img_temp.GetHeight()*self.scale)).ConvertToBitmap()
         self.keypad_bmp = wx.Image(imagefile("arrow_keys.png"), wx.BITMAP_TYPE_PNG).ConvertToBitmap()
         self.keypad_idx = -1
         self.hovered_keypad = None
